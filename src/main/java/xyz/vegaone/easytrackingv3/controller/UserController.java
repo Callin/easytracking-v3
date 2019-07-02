@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.*;
 import xyz.vegaone.easytrackingv3.dto.User;
 import xyz.vegaone.easytrackingv3.service.UserService;
 
+import static xyz.vegaone.easytrackingv3.controller.RestApiConstants.BASE_URL;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping(BASE_URL + "user")
 public class UserController {
 
     private UserService userService;
