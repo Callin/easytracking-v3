@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/easytrackingv3?autoReconnect=true&useSSL=false
+    username:
+    password:
+server:
+  port: 6000
