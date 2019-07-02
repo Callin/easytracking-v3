@@ -32,7 +32,7 @@ public class UserController {
         return userService.getUser(id);
     }
     @PostMapping("authenticate")
-    public User authenticate(@RequestBody User user) {
+    public User authenticate(@NonNull @RequestBody User user) {
         return userService.authenticate(user);
     }
 
