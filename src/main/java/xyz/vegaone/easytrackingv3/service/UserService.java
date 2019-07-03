@@ -10,6 +10,8 @@ import xyz.vegaone.easytrackingv3.dto.User;
 import xyz.vegaone.easytrackingv3.repo.UserRepo;
 import xyz.vegaone.easytrackingv3.repo.UserRepo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,6 +42,17 @@ public class UserService {
     public User getUser(Long id) {
         Optional<UserEntity> userOptional = userRepo.findById(id);
         return mapper.map(userOptional.orElseThrow(), User.class);
+    }
+
+    public List<User> getAllUsers() {
+        List<UserEntity> userEntityList = userRepo.findAll();
+        List<User> userList = new ArrayList<>();
+
+        for (UserEntity userEntity : userEntityList) {
+            userList.add(mapper.map(userEntity, User.class));
+        }
+
+        return userList;
     }
 
     public User authenticate(User user) {

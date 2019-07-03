@@ -7,6 +7,9 @@ import xyz.vegaone.easytrackingv3.domain.SprintEntity;
 import xyz.vegaone.easytrackingv3.dto.Sprint;
 import xyz.vegaone.easytrackingv3.repo.SprintRepo;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +25,7 @@ public class SprintService {
 
     public Sprint createSprint(@NonNull Sprint sprint) {
         SprintEntity sprintEntity = sprintRepo.findFirstByOrderBySprintNumber();
-        sprint.setSprintNumber(sprintEntity.getSprintNumber() + 1);
+        sprint.setSprintNumber(sprintEntity == null ? 1: sprintEntity.getSprintNumber() + 1);
 
         return mapper.map(
                 sprintRepo.save(
@@ -40,6 +43,21 @@ public class SprintService {
     public Sprint getSprint(Long id) {
         Optional<SprintEntity> sprintOptional = sprintRepo.findById(id);
         return mapper.map(sprintOptional.orElseThrow(), Sprint.class);
+    }
+
+
+    public List<Sprint> getAllSprints() {
+        List<SprintEntity> sprintEntityList = sprintRepo.findAll();
+
+        List<Sprint> sprintList = new ArrayList<>();
+
+        for (SprintEntity sprintEntity : sprintEntityList) {
+            sprintList.add(mapper.map(sprintEntity, Sprint.class));
+        }
+
+        sprintList.sort(Comparator.comparing(Sprint::getSprintNumber).reversed());
+
+        return sprintList;
     }
 
     public void deleteSprint(Long id) {

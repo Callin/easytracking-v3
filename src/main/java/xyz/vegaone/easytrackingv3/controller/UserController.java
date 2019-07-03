@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import xyz.vegaone.easytrackingv3.dto.User;
 import xyz.vegaone.easytrackingv3.service.UserService;
 
+import java.util.List;
+
 import static xyz.vegaone.easytrackingv3.controller.RestApiConstants.BASE_URL;
 
 @RestController
@@ -31,6 +33,12 @@ public class UserController {
     public User getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
+
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
     @PostMapping("authenticate")
     public User authenticate(@NonNull @RequestBody User user) {
         return userService.authenticate(user);

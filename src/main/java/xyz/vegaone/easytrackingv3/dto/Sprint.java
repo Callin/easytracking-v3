@@ -19,7 +19,7 @@ public class Sprint {
     private Long id;
     private Integer sprintNumber;
     private Date startDate;
-    private Short endDate;
+    private Date endDate;
 
     @JsonIgnore
     private List<Task> taskList;
