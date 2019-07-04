@@ -22,6 +22,9 @@ public class TaskEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "status")
+    private String status;
+
     @Column(name = "estimation")
     private Short estimation;
 

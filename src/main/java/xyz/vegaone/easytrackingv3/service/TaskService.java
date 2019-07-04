@@ -38,7 +38,9 @@ public class TaskService {
         TaskEntity taskToSave = mapper.map(task, TaskEntity.class);
 
         taskToSave.setSprintId(task.getSprint().getId());
-        taskToSave.setUserId(task.getUser().getId());
+        if (task.getUser() != null) {
+            taskToSave.setUserId(task.getUser().getId());
+        }
 
         return mapper.map(taskRepo.save(taskToSave), Task.class);
     }
@@ -47,7 +49,9 @@ public class TaskService {
         TaskEntity taskToSave = mapper.map(task, TaskEntity.class);
 
         taskToSave.setSprintId(task.getSprint().getId());
-        taskToSave.setUserId(task.getUser().getId());
+        if (task.getUser() != null) {
+            taskToSave.setUserId(task.getUser().getId());
+        }
 
         return mapper.map(taskRepo.save(taskToSave), Task.class);
     }
@@ -77,8 +81,10 @@ public class TaskService {
     }
 
     private void addUserAndSprint(TaskEntity taskEntity, Task task) {
-        UserEntity userEntity = userRepo.findById(taskEntity.getUserId()).orElse(null);
-        task.setUser(mapper.map(userEntity, User.class));
+        if(taskEntity.getUserId() != null) {
+            UserEntity userEntity = userRepo.findById(taskEntity.getUserId()).orElse(null);
+            task.setUser(mapper.map(userEntity, User.class));
+        }
 
         SprintEntity sprintEntity = sprintRepo.findById(taskEntity.getSprintId()).orElseThrow();
         task.setSprint(mapper.map(sprintEntity, Sprint.class));

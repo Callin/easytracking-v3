@@ -97,3 +97,13 @@ databaseChangeLog:
                   type: date
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 4
+      author: dragos
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: status
+                  type: varchar(100)
+            tableName: task
