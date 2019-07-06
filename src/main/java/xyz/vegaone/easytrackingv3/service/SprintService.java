@@ -24,7 +24,7 @@ public class SprintService {
     }
 
     public Sprint createSprint(@NonNull Sprint sprint) {
-        SprintEntity sprintEntity = sprintRepo.findFirstByOrderBySprintNumber();
+        SprintEntity sprintEntity = sprintRepo.findFirstByOrderBySprintNumberDesc();
         sprint.setSprintNumber(sprintEntity == null ? 1: sprintEntity.getSprintNumber() + 1);
 
         return mapper.map(

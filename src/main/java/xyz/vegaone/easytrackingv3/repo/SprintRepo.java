@@ -6,5 +6,5 @@ import xyz.vegaone.easytrackingv3.domain.SprintEntity;
 
 @Repository
 public interface SprintRepo extends JpaRepository<SprintEntity, Long> {
-    SprintEntity findFirstByOrderBySprintNumber();
+    SprintEntity findFirstByOrderBySprintNumberDesc();
 }

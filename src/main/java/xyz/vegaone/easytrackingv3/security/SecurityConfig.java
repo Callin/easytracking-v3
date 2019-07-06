@@ -17,10 +17,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private EasytrackingUserDetailsService easytrackingUserDetailsService;
 
+    @Autowired
+    private EasytrackingBasicAuthenticationEntryPoint easytrackingBasicAuthenticationEntryPoint;
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.cors().and()
-                .csrf().disable();
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .authenticationEntryPoint(easytrackingBasicAuthenticationEntryPoint);
     }
 
     @Override
