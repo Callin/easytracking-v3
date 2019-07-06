@@ -1,38 +1,52 @@
 package xyz.vegaone.easytrackingv3.service;
 
-import com.github.dozermapper.core.Mapper;
 import lombok.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import xyz.vegaone.easytrackingv3.domain.RoleUserEntity;
 import xyz.vegaone.easytrackingv3.domain.UserEntity;
+import xyz.vegaone.easytrackingv3.dto.Role;
 import xyz.vegaone.easytrackingv3.dto.User;
+import xyz.vegaone.easytrackingv3.repo.RoleRepo;
+import xyz.vegaone.easytrackingv3.repo.RoleUserRepo;
 import xyz.vegaone.easytrackingv3.repo.UserRepo;
+import xyz.vegaone.easytrackingv3.util.MapperUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private UserRepo userRepo;
 
-    private Mapper mapper;
-
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepo, Mapper mapper, PasswordEncoder passwordEncoder) {
+    private RoleUserRepo roleUserRepo;
+
+    private RoleRepo roleRepo;
+
+    private MapperUtil mapperUtil;
+
+    public UserService(UserRepo userRepo,
+                       PasswordEncoder passwordEncoder,
+                       RoleUserRepo roleUserRepo,
+                       RoleRepo roleRepo,
+                       MapperUtil mapperUtil) {
         this.userRepo = userRepo;
-        this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
+        this.roleUserRepo = roleUserRepo;
+        this.roleRepo = roleRepo;
+        this.mapperUtil = mapperUtil;
     }
 
     public User createUser(@NonNull User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        UserEntity savedUser = userRepo.save(mapper.map(user, UserEntity.class));
+        UserEntity savedUser = userRepo.save(mapperUtil.map(user, UserEntity.class));
         savedUser.setPassword(null);
 
-        return mapper.map(savedUser, User.class);
+        return mapperUtil.map(savedUser, User.class);
     }
 
     public User updateUser(@NonNull User user) {
@@ -45,35 +59,47 @@ public class UserService {
             user.setPassword(userPassword);
         }
 
-        savedUser = userRepo.save(mapper.map(user, UserEntity.class));
+        savedUser = userRepo.save(mapperUtil.map(user, UserEntity.class));
         savedUser.setPassword(null);
 
-        return mapper.map(savedUser, User.class);
+        return mapperUtil.map(savedUser, User.class);
     }
 
     public User getUser(Long id) {
         Optional<UserEntity> userOptional = userRepo.findById(id);
-        User user = mapper.map(userOptional.orElseThrow(), User.class);
+        User user = mapperUtil.map(userOptional.orElseThrow(), User.class);
+
+        List<RoleUserEntity> roleUserEntityList = roleUserRepo.findAllByUserId(id);
+        List<Long> roleIdList = roleUserEntityList.stream()
+                .map(RoleUserEntity::getId)
+                .collect(Collectors.toList());
+
+        user.setRoleList(mapperUtil.mapList(roleRepo.findAllByIdIn(roleIdList), Role.class));
+
         user.setPassword(null);
+
         return user;
     }
 
     public List<User> getAllUsers() {
         List<UserEntity> userEntityList = userRepo.findAll();
-        List<User> userList = new ArrayList<>();
-
-        for (UserEntity userEntity : userEntityList) {
-            userEntity.setPassword(null);
-            userList.add(mapper.map(userEntity, User.class));
-        }
-
-        return userList;
+        return mapperUtil.mapList(userEntityList, User.class);
     }
 
     public User authenticate(User user) {
         UserEntity userEntity = userRepo.findByEmail(user.getEmail());
-        userEntity.setPassword(null);
-        return mapper.map(userEntity, User.class);
+        User authenticatedUser = mapperUtil.map(userEntity, User.class);
+
+        List<RoleUserEntity> roleUserEntityList = roleUserRepo.findAllByUserId(authenticatedUser.getId());
+        List<Long> roleIdList = roleUserEntityList.stream()
+                .map(RoleUserEntity::getId)
+                .collect(Collectors.toList());
+
+        authenticatedUser.setRoleList(mapperUtil.mapList(roleRepo.findAllByIdIn(roleIdList), Role.class));
+
+        authenticatedUser.setPassword(null);
+
+        return authenticatedUser;
     }
 
     public void deleteUser(Long id) {

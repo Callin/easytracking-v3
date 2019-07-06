@@ -21,4 +21,6 @@ public class User {
 
     @JsonIgnore
     private List<Task> taskList;
+
+    private List<Role> roleList;
 }

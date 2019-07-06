@@ -1,6 +1,5 @@
 package xyz.vegaone.easytrackingv3.service;
 
-import com.github.dozermapper.core.Mapper;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv3.domain.SprintEntity;
@@ -12,6 +11,7 @@ import xyz.vegaone.easytrackingv3.dto.User;
 import xyz.vegaone.easytrackingv3.repo.SprintRepo;
 import xyz.vegaone.easytrackingv3.repo.TaskRepo;
 import xyz.vegaone.easytrackingv3.repo.UserRepo;
+import xyz.vegaone.easytrackingv3.util.MapperUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,35 +25,35 @@ public class TaskService {
 
     private SprintRepo sprintRepo;
 
-    private Mapper mapper;
+    private MapperUtil mapperUtil;
 
-    public TaskService(TaskRepo taskRepo, UserRepo userRepo, SprintRepo sprintRepo, Mapper mapper) {
+    public TaskService(TaskRepo taskRepo, UserRepo userRepo, SprintRepo sprintRepo, MapperUtil mapperUtil) {
         this.taskRepo = taskRepo;
         this.userRepo = userRepo;
         this.sprintRepo = sprintRepo;
-        this.mapper = mapper;
+        this.mapperUtil = mapperUtil;
     }
 
     public Task createTask(@NonNull Task task) {
-        TaskEntity taskToSave = mapper.map(task, TaskEntity.class);
+        TaskEntity taskToSave = mapperUtil.map(task, TaskEntity.class);
 
         taskToSave.setSprintId(task.getSprint().getId());
         if (task.getUser() != null) {
             taskToSave.setUserId(task.getUser().getId());
         }
 
-        return mapper.map(taskRepo.save(taskToSave), Task.class);
+        return mapperUtil.map(taskRepo.save(taskToSave), Task.class);
     }
 
     public Task updateTask(@NonNull Task task) {
-        TaskEntity taskToSave = mapper.map(task, TaskEntity.class);
+        TaskEntity taskToSave = mapperUtil.map(task, TaskEntity.class);
 
         taskToSave.setSprintId(task.getSprint().getId());
         if (task.getUser() != null) {
             taskToSave.setUserId(task.getUser().getId());
         }
 
-        return mapper.map(taskRepo.save(taskToSave), Task.class);
+        return mapperUtil.map(taskRepo.save(taskToSave), Task.class);
     }
 
     public List<Task> getTasksForSprintId(Long sprintId) {
@@ -62,7 +62,7 @@ public class TaskService {
         List<Task> taskList = new ArrayList<>();
 
         for (TaskEntity taskEntity : taskEntityList) {
-            Task task = mapper.map(taskEntity, Task.class);
+            Task task = mapperUtil.map(taskEntity, Task.class);
             addUserAndSprint(taskEntity, task);
             taskList.add(task);
         }
@@ -73,7 +73,7 @@ public class TaskService {
     public Task getTask(Long id) {
         Optional<TaskEntity> taskOptional = taskRepo.findById(id);
         TaskEntity taskEntity = taskOptional.orElseThrow();
-        Task task = mapper.map(taskEntity, Task.class);
+        Task task = mapperUtil.map(taskEntity, Task.class);
 
         addUserAndSprint(taskEntity, task);
 
@@ -81,13 +81,13 @@ public class TaskService {
     }
 
     private void addUserAndSprint(TaskEntity taskEntity, Task task) {
-        if(taskEntity.getUserId() != null) {
+        if (taskEntity.getUserId() != null) {
             UserEntity userEntity = userRepo.findById(taskEntity.getUserId()).orElse(null);
-            task.setUser(mapper.map(userEntity, User.class));
+            task.setUser(mapperUtil.map(userEntity, User.class));
         }
 
         SprintEntity sprintEntity = sprintRepo.findById(taskEntity.getSprintId()).orElseThrow();
-        task.setSprint(mapper.map(sprintEntity, Sprint.class));
+        task.setSprint(mapperUtil.map(sprintEntity, Sprint.class));
     }
 
     public void deleteTask(Long id) {
