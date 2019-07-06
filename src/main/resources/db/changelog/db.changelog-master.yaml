@@ -107,3 +107,46 @@ databaseChangeLog:
                   name: status
                   type: varchar(100)
             tableName: task
+  - changeSet:
+      id: 5
+      author: dragos
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 6
+      author: dragos
+      changes:
+        - createTable:
+            tableName: role_user
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
