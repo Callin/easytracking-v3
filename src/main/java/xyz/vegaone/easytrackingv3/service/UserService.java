@@ -92,7 +92,7 @@ public class UserService {
 
         List<RoleUserEntity> roleUserEntityList = roleUserRepo.findAllByUserId(authenticatedUser.getId());
         List<Long> roleIdList = roleUserEntityList.stream()
-                .map(RoleUserEntity::getId)
+                .map(RoleUserEntity::getRoleId)
                 .collect(Collectors.toList());
 
         authenticatedUser.setRoleList(mapperUtil.mapList(roleRepo.findAllByIdIn(roleIdList), Role.class));
