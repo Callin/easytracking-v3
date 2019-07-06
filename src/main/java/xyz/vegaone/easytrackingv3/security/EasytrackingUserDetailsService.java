@@ -8,18 +8,19 @@ import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv3.domain.UserEntity;
 import xyz.vegaone.easytrackingv3.dto.User;
 import xyz.vegaone.easytrackingv3.repo.UserRepo;
+import xyz.vegaone.easytrackingv3.util.MapperUtil;
 
 @Service
 public class EasytrackingUserDetailsService implements UserDetailsService {
 
     private UserRepo userRepository;
 
-    private Mapper mapper;
+    private MapperUtil mapperUtil;
 
     public EasytrackingUserDetailsService(UserRepo userRepository,
-                                          Mapper mapper) {
+                                          MapperUtil mapperUtil) {
         this.userRepository = userRepository;
-        this.mapper = mapper;
+        this.mapperUtil = mapperUtil;
     }
 
     @Override
@@ -29,6 +30,6 @@ public class EasytrackingUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        return new EasytrackingUserPrincipal(mapper.map(userEntity, User.class));
+        return new EasytrackingUserPrincipal(mapperUtil.map(userEntity, User.class));
     }
 }

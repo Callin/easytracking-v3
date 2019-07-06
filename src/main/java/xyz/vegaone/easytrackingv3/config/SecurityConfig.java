@@ -1,4 +1,4 @@
-package xyz.vegaone.easytrackingv3.security;
+package xyz.vegaone.easytrackingv3.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import xyz.vegaone.easytrackingv3.security.EasytrackingBasicAuthenticationEntryPoint;
+import xyz.vegaone.easytrackingv3.security.EasytrackingUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
