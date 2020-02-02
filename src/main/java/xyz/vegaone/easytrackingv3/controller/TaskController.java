@@ -39,6 +39,11 @@ public class TaskController {
         return taskService.getTasksForSprintId(sprintId);
     }
 
+    @GetMapping("all")
+    public List<Task> getAll() {
+        return taskService.getAllTasks();
+    }
+
     @DeleteMapping("{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);

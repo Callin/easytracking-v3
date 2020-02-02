@@ -23,14 +23,25 @@ public class TaskService {
 
     private UserRepo userRepo;
 
+    private UserService userService;
+
     private SprintRepo sprintRepo;
+
+    private SprintService sprintService;
 
     private MapperUtil mapperUtil;
 
-    public TaskService(TaskRepo taskRepo, UserRepo userRepo, SprintRepo sprintRepo, MapperUtil mapperUtil) {
+    public TaskService(TaskRepo taskRepo,
+                       UserRepo userRepo,
+                       UserService userService,
+                       SprintRepo sprintRepo,
+                       SprintService sprintService,
+                       MapperUtil mapperUtil) {
         this.taskRepo = taskRepo;
         this.userRepo = userRepo;
+        this.userService = userService;
         this.sprintRepo = sprintRepo;
+        this.sprintService = sprintService;
         this.mapperUtil = mapperUtil;
     }
 
@@ -78,6 +89,35 @@ public class TaskService {
         addUserAndSprint(taskEntity, task);
 
         return task;
+    }
+
+    public List<Task> getAllTasks() {
+        List<TaskEntity> entityList = taskRepo.findAll();
+        List<Task> taskList = mapperUtil.mapList(entityList, Task.class);
+
+        List<User> userList = userService.getAllUsers();
+
+        List<Sprint> sprintList = sprintService.getAllSprints();
+
+        entityList.forEach(entity -> {
+            userList
+                    .stream()
+                    .filter(user -> user.getId().equals(entity.getUserId()))
+                    .findFirst()
+                    .ifPresent(userDto -> taskList.stream()
+                            .filter(task -> task.getId().equals(entity.getId()))
+                            .findFirst()
+                            .ifPresent(task -> task.setUser(userDto)));
+            sprintList.stream()
+                    .filter(sprint -> sprint.getId().equals(entity.getSprintId()))
+                    .findFirst()
+                    .ifPresent(sprintDto ->  taskList.stream()
+                            .filter(task -> task.getId().equals(entity.getId()))
+                            .findFirst()
+                            .ifPresent(task -> task.setSprint(sprintDto)));
+        });
+
+        return taskList;
     }
 
     private void addUserAndSprint(TaskEntity taskEntity, Task task) {
