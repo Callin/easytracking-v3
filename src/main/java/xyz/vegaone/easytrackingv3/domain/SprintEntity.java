@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,4 +26,7 @@ public class SprintEntity {
 
     @Column(name = "end_date")
     private Date endDate;
+
+    @OneToMany (mappedBy="sprint")
+    private List<TaskEntity> tasks;
 }
