@@ -32,7 +32,9 @@ pipeline {
                 echo "Rename the new version to current"
                 mv backend-new backend
                 cd /home/dragos/apps/easytracking/backend
+                echo "Kill old process"
                 kill -9 $(lsof -t -i:6000)
+                echo "Start new process"
                 nohup java -jar /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar &
             '''
         }
