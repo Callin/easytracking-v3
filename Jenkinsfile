@@ -16,7 +16,7 @@ pipeline {
             sh '''#!/bin/bash
                 echo 'Running mvn clean package'
                 cd easytracking-v3
-                mvn clean package
+                mvn clean package -DskipTests
             '''
             }
       }
