@@ -24,7 +24,7 @@ pipeline {
           steps {
             sh '''#!/bin/bash
                 echo 'Copying new version to temporary directory'
-                cp -R easytracking-v3/target/easytracking-v3/*.jar /home/dragos/apps/easytracking/backend-new
+                cp -R target/easytracking-v3/*.jar /home/dragos/apps/easytracking/backend-new
                 echo "Rename the current version to old"
                 cd /home/dragos/apps/easytracking
                 if [ -d backend-old ]; then rm -Rf backend-old; fi
