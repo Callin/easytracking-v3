@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +28,7 @@ public class UserEntity {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany (mappedBy="user")
+    private List<TaskEntity> tasks;
 }

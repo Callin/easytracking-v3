@@ -18,6 +18,5 @@ public class Sprint {
     private Integer sprintNumber;
     private Date startDate;
     private Date endDate;
-
-    private List<Task> taskList;
+    private List<Task> tasks;
 }

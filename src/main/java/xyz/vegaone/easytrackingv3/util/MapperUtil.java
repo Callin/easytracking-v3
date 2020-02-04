@@ -3,6 +3,7 @@ package xyz.vegaone.easytrackingv3.util;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import org.springframework.stereotype.Component;
+import xyz.vegaone.easytrackingv3.mapper.EasytrackingBeanMappingBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +14,11 @@ public class MapperUtil {
     private Mapper mapper;
 
     public MapperUtil() {
-        this.mapper = DozerBeanMapperBuilder.buildDefault();
+        this.mapper = DozerBeanMapperBuilder
+                .create()
+                .withMappingBuilder(new EasytrackingBeanMappingBuilder())
+                .build();
+
     }
 
     public <T, U> U map(T source, Class<U> destinationClass) {
