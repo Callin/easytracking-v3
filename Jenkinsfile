@@ -35,7 +35,7 @@ pipeline {
                 echo "Kill old process"
                 kill -9 $(lsof -t -i:6000)
                 echo "Start new process"
-                nohup java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
+                java -jar easytracking-v3-0.0.1-SNAPSHOT.jar
             '''
         }
       }
