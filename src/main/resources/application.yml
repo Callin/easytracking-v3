@@ -5,3 +5,5 @@ spring:
     password: easytrackingv3
 server:
   port: 6000
+logging:
+  file: easytracking.log
