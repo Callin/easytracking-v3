@@ -38,7 +38,7 @@ pipeline {
                 cd /home/dragos/apps/easytracking/backend
                 echo "Start the new process "
                 echo $PWD
-                nohup java -jar easytracking-v3-0.0.1-SNAPSHOT.jar
+                nohup java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
                 echo "Finish starting the app."
             '''
         }
