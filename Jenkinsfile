@@ -37,7 +37,7 @@ pipeline {
                 echo "Start the new process "
                 echo $PWD
                 echo ja=`java --version`
-                java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
+                echo `java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &`
             '''
         }
       }
