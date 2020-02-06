@@ -36,7 +36,6 @@ pipeline {
                 fi
                 echo "Start the new process "
                 echo $PWD
-                echo java=`java --version`
                 nohup java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
                 echo "Finish starting the app."
             '''
