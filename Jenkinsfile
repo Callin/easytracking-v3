@@ -33,10 +33,11 @@ pipeline {
                 mv backend-new backend
                 cd /home/dragos/apps/easytracking/backend
                 echo "Kill the old process"
-                output=`lsof -i :6000`
+                output=`lsof -t -i:6000`
+                echo $output
                 if [ ${#output} != 0 ]; then
                     echo "Port 6000 is already used. Terminating the process"
-                    pkill -f "java"
+                    kill -9 $output
                 else
                     echo "Port 6000 is not in use"
                 fi
