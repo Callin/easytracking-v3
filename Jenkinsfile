@@ -32,10 +32,17 @@ pipeline {
                 echo "Rename the new version to current"
                 mv backend-new backend
                 cd /home/dragos/apps/easytracking/backend
-                echo "Kill old process"
-                kill -9 $(lsof -t -i:6000)
-                echo "Start new process"
+                echo "Kill the old process"
+                output=`lsof -i :6000`
+                if [ ${#output} != 0 ]; then
+                    echo "Port 6000 is already used. Terminating the process"
+                    pkill -f "java"
+                else
+                    echo "Port 6000 is not in use"
+                fi
+                echo "Start the new process"
                 echo $WORKSPACE
+                echo pwd
                 java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
             '''
         }
