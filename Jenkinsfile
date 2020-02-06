@@ -35,11 +35,11 @@ pipeline {
                 rm /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar
                 echo 'Copying new version'
                 cp -R easytracking-v3/target/easytracking-v3-0.0.1-SNAPSHOT.jar /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar
+                '''
+            sh '''
                 cd /home/dragos/apps/easytracking/backend
                 echo "Start the new process "
                 echo $PWD
-                '''
-            sh '''
                 java -jar easytracking-v3-0.0.1-SNAPSHOT.jar
                 echo "Finish starting the app."
             '''
