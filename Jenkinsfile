@@ -39,6 +39,7 @@ pipeline {
                 echo "Start the new process "
                 echo $PWD
                 nohup java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
+                while ! httping -qc1 http://localhost:6000 ;
                 echo "Finish starting the app."
             '''
         }
