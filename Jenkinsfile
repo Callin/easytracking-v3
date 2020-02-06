@@ -40,9 +40,9 @@ pipeline {
                 else
                     echo "Port 6000 is not in use"
                 fi
-                echo "Start the new process"
+                echo "Start the new process "
                 echo $WORKSPACE
-                echo pwd
+                echo $PWD
                 java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
             '''
         }
