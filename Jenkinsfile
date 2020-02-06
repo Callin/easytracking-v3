@@ -40,7 +40,7 @@ pipeline {
                 cd /home/dragos/apps/easytracking/backend
                 echo "Start the new process "
                 echo $PWD
-                nohup ./mvnw spring-boot:run -Dserver.port=6000 &
+                nohup mvn spring-boot:run -Dserver.port=6000 &
                 echo "Finish starting the app."
             '''
         }
