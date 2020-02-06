@@ -23,9 +23,6 @@ pipeline {
       stage('Deploy') {
           steps {
             sh '''#!/bin/bash
-                echo 'Copying new version to temporary directory'
-                cp -R easytracking-v3/target/easytracking-v3-0.0.1-SNAPSHOT.jar /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar
-                cd /home/dragos/apps/easytracking/backend
                 output=`lsof -t -i:6000`
                 echo $output
                 if [ ${#output} != 0 ]; then
@@ -34,6 +31,11 @@ pipeline {
                 else
                     echo "Port 6000 is not in use"
                 fi
+                echo "Removing old jar"
+                rm /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar
+                echo 'Copying new version to temporary directory'
+                cp -R easytracking-v3/target/easytracking-v3-0.0.1-SNAPSHOT.jar /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar
+                cd /home/dragos/apps/easytracking/backend
                 echo "Start the new process "
                 echo $PWD
                 nohup java -jar easytracking-v3-0.0.1-SNAPSHOT.jar & > easytracking.log
