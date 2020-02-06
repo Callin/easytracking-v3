@@ -40,7 +40,7 @@ pipeline {
                 cd /home/dragos/apps/easytracking/backend
                 echo "Start the new process "
                 echo $PWD
-                java -jar easytracking-v3-0.0.1-SNAPSHOT.jar
+                nohup ./mvnw spring-boot:run -Dserver.port=6000 &
                 echo "Finish starting the app."
             '''
         }
