@@ -26,18 +26,17 @@ pipeline {
                 echo 'Copying new version to temporary directory'
                 cp -R easytracking-v3/target/easytracking-v3-0.0.1-SNAPSHOT.jar /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar
                 cd /home/dragos/apps/easytracking/backend
-                echo "Kill the old process"
                 output=`lsof -t -i:6000`
                 echo $output
                 if [ ${#output} != 0 ]; then
-                    echo "Port 6000 is already used. Terminating the process"
+                    echo "Port 6000 is in use. Terminating the process"
                     kill -9 $output
                 else
                     echo "Port 6000 is not in use"
                 fi
                 echo "Start the new process "
-                echo $WORKSPACE
                 echo $PWD
+                echo ja=`java --version`
                 java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &
             '''
         }
