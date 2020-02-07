@@ -47,7 +47,7 @@ pipeline {
              sh '''#!/bin/bash
                 echo 'Checking that easytracking is running.'
                 n=0
-                until [ $n -ge 5 ]
+                until [ $n -ge 10 ]
                 do
                     httpStatusCode=`curl -I localhost:6000 2>/dev/null | head -n 1 | cut -d$' ' -f2`
                     if [ "$httpStatusCode" == "401" ] ; then
@@ -59,6 +59,9 @@ pipeline {
                         sleep 5
                     fi
                 done
+                if [ $n -ge 10 ] ; then
+                    echo "Re-checked 10 times. I will stop now. Easytracking is not up and running."
+                fi
               '''
              }
       }
