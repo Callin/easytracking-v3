@@ -36,12 +36,31 @@ pipeline {
                 echo 'Copying new version'
                 cp -R easytracking-v3/target/easytracking-v3-0.0.1-SNAPSHOT.jar /home/dragos/apps/easytracking/backend/easytracking-v3-0.0.1-SNAPSHOT.jar
                 cd /home/dragos/apps/easytracking/backend
-                echo "Start the new process "
-                echo $PWD
+                echo "Starting the new process "
                 JENKINS_NODE_COOKIE=DONTKILLME nohup java -jar easytracking-v3-0.0.1-SNAPSHOT.jar &>> easytracking.log &
                 echo "Finish starting the app."
             '''
         }
+      }
+      stage('Up and running check') {
+          steps {
+             sh '''#!/bin/bash
+                echo 'Checking that easytracking is running.'
+                n=0
+                until [ $n -ge 5 ]
+                do
+                    httpStatusCode=`curl -I localhost:6000 2>/dev/null | head -n 1 | cut -d$' ' -f2`
+                    if [ "$httpStatusCode" -eq 401 ] ; then
+                        echo "Easytracking is up and running."
+                        break;
+                    else
+                        echo "Easytracking is not up. Retrying in 15 seconds"
+                        n=$[$n+1]
+                        sleep 15
+                    fi
+                done
+              '''
+             }
       }
     }
 }
