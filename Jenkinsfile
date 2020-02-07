@@ -50,7 +50,7 @@ pipeline {
                 until [ $n -ge 5 ]
                 do
                     httpStatusCode=`curl -I localhost:6000 2>/dev/null | head -n 1 | cut -d$' ' -f2`
-                    if [ "$httpStatusCode" -eq 401 ] ; then
+                    if [ "$httpStatusCode" == "401" ] ; then
                         echo "Easytracking is up and running."
                         break;
                     else
