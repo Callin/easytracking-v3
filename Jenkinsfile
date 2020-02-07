@@ -54,9 +54,9 @@ pipeline {
                         echo "Easytracking is up and running."
                         break;
                     else
-                        echo "Easytracking is not up. Re-checking in 10 seconds"
+                        echo "Easytracking is not up. Re-checking in 5 seconds"
                         n=$[$n+1]
-                        sleep 10
+                        sleep 5
                     fi
                 done
               '''
