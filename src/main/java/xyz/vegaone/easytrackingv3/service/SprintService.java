@@ -46,6 +46,12 @@ public class SprintService {
     }
 
 
+    public List<Sprint> getAllSprintsSorted() {
+        List<Sprint> sprintList = getAllSprints();
+        sprintList.sort(Comparator.comparing(Sprint::getSprintNumber).reversed());
+
+        return sprintList;
+    }
     public List<Sprint> getAllSprints() {
         List<SprintEntity> sprintEntityList = sprintRepo.findAll();
 
@@ -54,8 +60,6 @@ public class SprintService {
         for (SprintEntity sprintEntity : sprintEntityList) {
             sprintList.add(mapperUtil.map(sprintEntity, Sprint.class));
         }
-
-        sprintList.sort(Comparator.comparing(Sprint::getSprintNumber).reversed());
 
         return sprintList;
     }

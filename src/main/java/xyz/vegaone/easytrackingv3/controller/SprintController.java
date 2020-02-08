@@ -35,8 +35,8 @@ public class SprintController {
     }
 
     @GetMapping("all")
-    public List<Sprint> getAllSprints() {
-        return sprintService.getAllSprints();
+    public List<Sprint> getAllSprintsSorted() {
+        return sprintService.getAllSprintsSorted();
     }
 
     @DeleteMapping("{id}")

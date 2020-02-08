@@ -47,6 +47,10 @@ public class TaskService {
         List<TaskEntity> entityList = taskRepo.findAll();
         return mapperUtil.mapList(entityList, Task.class);
     }
+    public List<Task> getAllTasksWithoutAnAssignedSprint() {
+        List<TaskEntity> entityList = taskRepo.findAllBySprintIsNull();
+        return mapperUtil.mapList(entityList, Task.class);
+    }
 
     public void deleteTask(Long id) {
         taskRepo.deleteById(id);
