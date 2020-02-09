@@ -31,11 +31,11 @@ public class TaskEntity {
     @Column(name = "priority")
     private Short priority;
 
-    @ManyToOne (cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="user_id")
     private UserEntity user;
 
-    @ManyToOne (cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="sprint_id")
     private SprintEntity sprint;
 }
