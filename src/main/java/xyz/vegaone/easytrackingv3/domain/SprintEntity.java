@@ -27,6 +27,10 @@ public class SprintEntity {
     @Column(name = "end_date")
     private Date endDate;
 
-    @OneToMany (mappedBy="sprint")
+    @OneToMany(mappedBy = "project")
     private List<TaskEntity> tasks;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private ProjectEntity project;
 }

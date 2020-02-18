@@ -29,6 +29,9 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
-    @OneToMany (mappedBy="user")
+    @OneToMany(mappedBy = "user")
     private List<TaskEntity> tasks;
+
+    @ManyToMany(mappedBy = "users")
+    private List<ProjectEntity> projectList;
 }

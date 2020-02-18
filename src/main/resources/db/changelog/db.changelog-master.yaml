@@ -150,3 +150,64 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 7
+      author: Bogdan
+      changes:
+        - createTable:
+            tableName: project
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: project_name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: project_description
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 8
+      author: Bogdan
+      changes:
+        - addColumn:
+            tableName: sprint
+            columns:
+              - column:
+                  name: project_id
+                  type: bigint
+  - changeSet:
+      id: 9
+      author: Bogdan
+      changes:
+        - addColumn:
+            tableName: task
+            columns:
+              - column:
+                  name: project_id
+                  type: bigint
+  - changeSet:
+      id: 10
+      author: Bogdan
+      changes:
+        - createTable:
+            tableName: project_user
+            columns:
+              - column:
+                  name: project_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
