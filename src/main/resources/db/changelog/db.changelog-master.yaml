@@ -165,7 +165,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: project_name
+                  name: name
                   type: varchar(150)
                   constraints:
                     nullable: false
