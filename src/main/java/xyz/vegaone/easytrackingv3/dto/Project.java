@@ -20,9 +20,9 @@ import java.util.List;
 public class Project {
 
     private Long id;
-    private String projectName;
-    private String projectDescription;
-    private List<SprintEntity> sprints;
-    private List<TaskEntity> tasks;
-    private List<UserEntity> users;
+    private String name;
+    private String description;
+    private List<Sprint> sprints;
+    private List<Task> tasks;
+    private List<User> users;
 }

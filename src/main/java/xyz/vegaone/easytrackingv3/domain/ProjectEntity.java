@@ -21,7 +21,7 @@ public class ProjectEntity {
     @Column(name = "name")
     private String projectName;
 
-    @Column(name = "project_description")
+    @Column(name = "description")
     private String projectDescription;
 
     @OneToMany(mappedBy = "project")

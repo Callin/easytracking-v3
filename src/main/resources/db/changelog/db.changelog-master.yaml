@@ -170,7 +170,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: project_description
+                  name: description
                   type: varchar(250)
                   constraints:
                     nullable: false
