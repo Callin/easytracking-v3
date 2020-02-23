@@ -47,17 +47,17 @@ public class ProjectController {
         projectService.deleteProject(id);
     }
 
-    @GetMapping("/sprint/{projectId}")
+    @GetMapping("/{projectId}/sprint")
     public List<Sprint> getAllSprints(@PathVariable Long projectId){
         return projectService.getAllSprintsForProject(projectId);
     }
 
-    @GetMapping("/tasks/{projectId}")
+    @GetMapping("/{projectId}/tasks")
     public List<Task> getAllTasks(@PathVariable Long projectId){
         return projectService.getAllTasksForProject(projectId);
     }
 
-    @GetMapping("/user/{projectId}")
+    @GetMapping("/{projectId}/user")
     public List<User> getAllUsers(@PathVariable Long projectId){
         return projectService.getAllUsersForProject(projectId);
     }

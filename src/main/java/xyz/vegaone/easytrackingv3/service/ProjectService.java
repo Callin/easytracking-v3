@@ -1,5 +1,6 @@
 package xyz.vegaone.easytrackingv3.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv3.domain.ProjectEntity;
@@ -13,9 +14,9 @@ import xyz.vegaone.easytrackingv3.dto.User;
 import xyz.vegaone.easytrackingv3.repo.ProjectRepo;
 import xyz.vegaone.easytrackingv3.repo.SprintRepo;
 import xyz.vegaone.easytrackingv3.repo.TaskRepo;
-import xyz.vegaone.easytrackingv3.repo.UserRepo;
 import xyz.vegaone.easytrackingv3.util.MapperUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,42 +38,42 @@ public class ProjectService {
         this.taskRepo = taskRepo;
     }
 
-    public Project createProject(@NonNull Project project){
+    public Project createProject(@NonNull Project project) {
         ProjectEntity projectToSave = mapperUtil.map(project, ProjectEntity.class);
         return mapperUtil.map(projectRepo.save(projectToSave), Project.class);
     }
 
-    public Project updateProject(@NonNull Project project){
+    public Project updateProject(@NonNull Project project) {
         ProjectEntity projectToSave = mapperUtil.map(project, ProjectEntity.class);
         return mapperUtil.map(projectRepo.save(projectToSave), Project.class);
     }
 
-    public void deleteProject(Long id){
+    public void deleteProject(Long id) {
         projectRepo.deleteById(id);
     }
 
-    public Project getProject(Long id){
+    public Project getProject(Long id) {
         Optional<ProjectEntity> projectOptional = projectRepo.findById(id);
         ProjectEntity projectEntity = projectOptional.orElseThrow();
         return mapperUtil.map(projectEntity, Project.class);
     }
 
-    public List<Project> getAllProjects(){
+    public List<Project> getAllProjects() {
         List<ProjectEntity> entityList = projectRepo.findAll();
         return mapperUtil.mapList(entityList, Project.class);
     }
 
-    public List<Sprint> getAllSprintsForProject(Long projectId){
+    public List<Sprint> getAllSprintsForProject(Long projectId) {
         List<SprintEntity> entityList = sprintRepo.findAllByProjectId(projectId);
         return mapperUtil.mapList(entityList, Sprint.class);
     }
 
-    public List<Task> getAllTasksForProject(Long projectId){
+    public List<Task> getAllTasksForProject(Long projectId) {
         List<TaskEntity> entityList = taskRepo.findAllByProjectId(projectId);
         return mapperUtil.mapList(entityList, Task.class);
     }
 
-    public List<User> getAllUsersForProject(Long id){
+    public List<User> getAllUsersForProject(Long id) {
         Optional<ProjectEntity> projectOptional = projectRepo.findById(id);
         ProjectEntity projectEntity = projectOptional.orElseThrow();
         List<UserEntity> entityList = projectEntity.getUsers();

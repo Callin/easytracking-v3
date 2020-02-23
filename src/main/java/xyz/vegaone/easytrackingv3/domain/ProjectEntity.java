@@ -1,11 +1,8 @@
 package xyz.vegaone.easytrackingv3.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 
 import javax.persistence.*;
 import java.util.List;
