@@ -32,10 +32,14 @@ public class TaskEntity {
     private Short priority;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name="sprint_id")
+    @JoinColumn(name = "sprint_id")
     private SprintEntity sprint;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private ProjectEntity project;
 }

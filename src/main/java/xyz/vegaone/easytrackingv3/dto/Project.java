@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import xyz.vegaone.easytrackingv3.domain.SprintEntity;
+import xyz.vegaone.easytrackingv3.domain.TaskEntity;
+import xyz.vegaone.easytrackingv3.domain.UserEntity;
 
 import java.util.List;
 
@@ -14,16 +17,12 @@ import java.util.List;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class User {
+public class Project {
+
     private Long id;
-    private String firstName;
-    private String secondName;
-    private String email;
-    private String password;
-
+    private String name;
+    private String description;
+    private List<Sprint> sprints;
     private List<Task> tasks;
-
-    private List<Role> roleList;
-
-    private List<Project> projectList;
+    private List<User> users;
 }
