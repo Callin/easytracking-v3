@@ -11,4 +11,6 @@ public interface TaskRepo extends JpaRepository<TaskEntity, Long> {
     List<TaskEntity> findAllBySprintId(Long sprintId);
 
     List<TaskEntity> findAllBySprintIsNull();
+
+    List<TaskEntity> findAllByProjectId(Long id);
 }

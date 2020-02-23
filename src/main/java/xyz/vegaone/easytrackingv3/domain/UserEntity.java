@@ -1,8 +1,12 @@
 package xyz.vegaone.easytrackingv3.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,6 +36,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<TaskEntity> tasks;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<ProjectEntity> projectList;
 }

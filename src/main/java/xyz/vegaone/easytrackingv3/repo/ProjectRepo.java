@@ -6,4 +6,6 @@ import xyz.vegaone.easytrackingv3.domain.ProjectEntity;
 
 @Repository
 public interface ProjectRepo extends JpaRepository<ProjectEntity, Long> {
-}
+
+//    List<User> findAllByProjectId(Long projectId);
+    }

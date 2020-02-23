@@ -3,6 +3,7 @@ package xyz.vegaone.easytrackingv3.service;
 import lombok.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import xyz.vegaone.easytrackingv3.domain.RoleUserEntity;
 import xyz.vegaone.easytrackingv3.domain.UserEntity;
@@ -13,6 +14,8 @@ import xyz.vegaone.easytrackingv3.repo.RoleUserRepo;
 import xyz.vegaone.easytrackingv3.repo.UserRepo;
 import xyz.vegaone.easytrackingv3.util.MapperUtil;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

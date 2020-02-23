@@ -211,3 +211,23 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 11
+      author: Bogdan
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: project_id
+            baseTableName: project_user
+            constraintName: fk_user_project_project
+            referencedColumnNames: id
+            referencedTableName: project
+  - changeSet:
+      id: 12
+      author: Bogdan
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: project_user
+            constraintName: fk_user_project_user
+            referencedColumnNames: id
+            referencedTableName: user

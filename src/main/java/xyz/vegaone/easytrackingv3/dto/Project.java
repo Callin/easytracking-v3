@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import xyz.vegaone.easytrackingv3.domain.SprintEntity;
-import xyz.vegaone.easytrackingv3.domain.TaskEntity;
-import xyz.vegaone.easytrackingv3.domain.UserEntity;
 
 import java.util.List;
 
