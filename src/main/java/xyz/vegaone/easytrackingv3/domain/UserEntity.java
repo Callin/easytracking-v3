@@ -32,6 +32,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<TaskEntity> tasks;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<ProjectEntity> projectList;
 }

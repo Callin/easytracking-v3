@@ -30,7 +30,7 @@ public class ProjectEntity {
     @OneToMany(mappedBy = "project")
     private List<TaskEntity> tasks;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "project_user",
             joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
