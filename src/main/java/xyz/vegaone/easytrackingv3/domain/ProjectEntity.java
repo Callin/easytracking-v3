@@ -19,10 +19,10 @@ public class ProjectEntity {
     private Long id;
 
     @Column(name = "name")
-    private String projectName;
+    private String name;
 
     @Column(name = "description")
-    private String projectDescription;
+    private String description;
 
     @OneToMany(mappedBy = "project")
     private List<SprintEntity> sprints;
