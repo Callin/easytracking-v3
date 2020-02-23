@@ -1,6 +1,5 @@
 package xyz.vegaone.easytrackingv3.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv3.domain.ProjectEntity;
@@ -16,7 +15,6 @@ import xyz.vegaone.easytrackingv3.repo.SprintRepo;
 import xyz.vegaone.easytrackingv3.repo.TaskRepo;
 import xyz.vegaone.easytrackingv3.util.MapperUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
